@@ -40,10 +40,11 @@ public class Dispatcher {
         }
 
         ViewResolver vr = new ViewResolver();
+        String toView = vr.resolve(result);
 
         views.add(new ConsoleView());
         for (View v : views){
-            v.print(vr.resolve(result));
+            v.print(toView);
         }
     }
 }

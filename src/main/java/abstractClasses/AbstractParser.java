@@ -18,7 +18,7 @@ public abstract class AbstractParser implements Parser {
 
     public boolean isSupportFile(String str){
         for (String extension : this.getSupportedExtensions()){
-            if(str.equals(extension)){
+            if(str.contains(extension)){
                 return true;
             }
         }

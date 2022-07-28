@@ -14,20 +14,27 @@ public class Handler {
 
     public Handler(){
         this.parsers = new ArrayList<>();
+        this.parsers.add(new TxtParser(List.of("txt")));
+        this.parsers.add(new XmlParser(List.of("xml")));
     }
 
     public List<ResultItem> handle(File file, String str){
 
-        this.parsers.add(new TxtParser(List.of("txt")));
-        this.parsers.add(new XmlParser(List.of("xml")));
-
         List<ResultItem> result = new ArrayList<>();
 
+        for(Parser p : parsers){
+
+            if(p.isSupportFile(file.toString())){
+                result = p.parse(file,str);
+
+            }
+        }
+        return result;
+    }
+}
+
+/*
         String [] pathParts = file.toString().split("\\.");
-
-//        System.out.println("=========pathParts=======");
-//        System.out.println(Arrays.toString(pathParts));
-
         for(Parser p : parsers){
             for(String pathPart : pathParts){
                 if(p.isSupportFile(pathPart)){
@@ -35,6 +42,4 @@ public class Handler {
                 }
             }
         }
-        return result;
-    }
-}
+ */
